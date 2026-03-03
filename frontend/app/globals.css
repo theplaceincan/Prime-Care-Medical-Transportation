@@ -30,4 +30,7 @@ body {
   .hover-lift:hover {
     transform: translateY(-5px);
   }
+  .rounded-4xl {
+    border-radius: 2rem;
+  }
 }
