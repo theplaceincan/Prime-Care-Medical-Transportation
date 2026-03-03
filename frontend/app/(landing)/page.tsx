@@ -1,0 +1,19 @@
+import Navbar from "./_components/Navbar"
+import Hero from "./_components/Hero"
+import Services from "./_components/Services"
+import HowItWorks from "./_components/HowItWorks"
+import CTA from "./_components/CTA"
+import Footer from "./_components/Footer"
+
+export default function Landing() {
+  return (
+    <>
+      <Navbar/>
+      <Hero/>
+      <Services/>
+      <HowItWorks/>
+      <CTA/>
+      <Footer/>
+    </>
+  )
+}
