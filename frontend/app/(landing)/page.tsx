@@ -8,12 +8,12 @@ import Footer from "./_components/Footer"
 export default function Landing() {
   return (
     <>
-      <Navbar/>
-      <Hero/>
-      <Services/>
-      <HowItWorks/>
-      <CTA/>
-      <Footer/>
+      <Navbar />
+      <Hero />
+      <Services />
+      <HowItWorks />
+      <CTA />
+      <Footer />
     </>
   )
 }
