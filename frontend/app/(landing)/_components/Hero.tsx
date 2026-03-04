@@ -18,7 +18,7 @@ export default function Hero() {
             Gentle, reliable medical transportation designed for seniors and those in need. We make every journey stress-free.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="/book-ride" className="inline-block bg-prime-red text-white px-10 py-5 rounded-full font-bold text-lg shadow-xl shadow-red-500/30 hover-lift text-center">
+            <a href="/sign-in" className="inline-block bg-prime-red text-white px-10 py-5 rounded-full font-bold text-lg shadow-xl shadow-red-500/30 hover-lift text-center">
               Book a Friendly Ride
             </a>
             <button
