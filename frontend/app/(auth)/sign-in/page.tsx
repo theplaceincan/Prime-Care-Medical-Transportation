@@ -2,12 +2,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { SubmitEventHandler } from "react";
 
 export default function SignInPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => setLoading(false), 1000);
