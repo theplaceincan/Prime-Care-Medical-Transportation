@@ -16,15 +16,45 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
+    setLoading(true);
     e.preventDefault();
+
     setError("");
     if (form.password !== form.confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/auth/register", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          email: form.email, 
+          password: form.password, 
+          first_name: form.firstName, 
+          last_name: form.lastName, 
+          phone: form.phone
+        })
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setError("Invalid input.")
+        setLoading(false)
+        return;
+      }
+
+      // Redirect to sign in
+      window.location.href = "/sign-in"
+
+    } catch(error) {
+      setError("Something went wrong with registration. Try again.")
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -118,6 +148,7 @@ export default function RegisterPage() {
               />
               {error && <p className="text-red-500 text-sm font-semibold mt-2">{error}</p>}
             </div>
+
 
             <p className="text-xs text-slate-400 leading-relaxed">
               By creating an account you agree to our{" "}

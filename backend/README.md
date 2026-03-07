@@ -33,5 +33,9 @@ database.py   : db session and engine
 
 pip install fastapi uvicorn sqlalchemy alembic psycopg2-binary python-dotenv pydantic[email] python-jose[cryptography] passlib[bcrypt] supabase
 
+// ignore this one
 pip uninstall bcrypt
 pip install "bcrypt<5"
+
+pip uninstall bcrypt -y
+pip install bcrypt==4.0.1

@@ -7,11 +7,36 @@ import { SubmitEventHandler } from "react";
 export default function SignInPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("")
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
+    e.preventDefault();
+    try {
+      const res = await fetch("http://127.0.0.1:8000/auth/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email: form.email, password: form.password}),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError("Invalid email or password.");
+        setLoading(false);
+        return;
+      }
+
+      // Storing token and user info
+      document.cookie = `access_token=${data.access_token}; path:/`
+      // localStorage.setItem("access_token", data.access_token);
+      // localStorage.setItem("user", JSON.stringify(data.user));
+
+      // Redirect based on role
+      window.location.href = "/book-ride";
+
+    } catch (error) {
+      setError("Something went wrong while signing in. Try again.")
+    }
+    setLoading(false);
   };
 
   return (
@@ -56,6 +81,8 @@ export default function SignInPage() {
                 placeholder="••••••••"
               />
             </div>
+
+            {error && <p className="text-red-500 text-sm font-semibold">{error}</p>}
 
             <button
               type="submit"

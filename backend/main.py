@@ -6,10 +6,23 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 import models
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from jose import jwt
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# CORS
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=[
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+  ],
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"]
+)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -28,7 +41,7 @@ if not JWT_SECRET:
 
 # create access tokens for login
 def create_access_token(user_id: str):
-  expire = datetime.utcnow() + timedelta(minutes=JWT_EXPIRE_MINUTES)
+  expire = datetime.now(UTC) + timedelta(minutes=JWT_EXPIRE_MINUTES)
   payload = {
     "sub": user_id,
     "exp": expire
